@@ -163,7 +163,7 @@ export const Connect4 = ({ client, command, firstPlayer, secondPlayer }) => {
         // only allow 1 through 7 messages
         if (twitchPlay >= 1 && twitchPlay <= 7) {
           // play for user in range of 0 to 6
-          twitchPlay -= -1;
+          twitchPlay = twitchPlay - 1;
           // trigger the click event for specified cell number
           document.getElementsByClassName("cell")[twitchPlay].click();
         }
