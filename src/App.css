@@ -1,7 +1,8 @@
-html{
-  background-image: url("https://pressstart.vip/images/uploads/assets/bluemoon.png");
-  /* background-repeat: repeat; */
-  background-color: #5555a7ad;
+html {
+  background-image: url("./assets/bg_001.png");
+  background-repeat: repeat;
+  background-color: #c7c5c5;
+  /* background-color: #111111; */
 }
 
 .App {
@@ -22,20 +23,78 @@ html{
 .App-header {
   display: flex;
   flex-direction: column;
-  /* align-items: flex-start ; */
   justify-content: center;
   font-size: calc(10px + 2vmin);
   padding: 50px;
 }
 
-.test {
-  width: 10rem !important;
+.connect4-container {
+  background: #dee2e6;
+  /* background-image: radial-gradient(#fffe01, #f9c41e);
+  box-shadow: 0 0 15px #f9c41e; */
 }
 
 .App-link {
   color: #61dafb;
 }
 
+.player2 {
+  color: #0d4174;
+}
+
+.player1 {
+  color: #cd1515;
+}
+
+#button-settings {
+  /* position: fixed;
+  right: 10%;
+  bottom: 50%;
+  z-index: 1000;
+  transform: rotate(360deg);
+  -webkit-transform: rotate(360deg);
+  -moz-transform: rotate(360deg);
+  -o-transform: rotate(360deg);
+  text-align: center;
+  text-decoration: none; */
+}
+
+.player2-container{
+  padding: 10px;
+  /* background: white; */
+  font-family: "Baloo Paaji", cursive;
+
+  text-shadow: 0 0 15px #0d4174;
+    position: fixed;
+  right: 10%;
+  bottom: 50%;
+  z-index: 1000;
+  transform: rotate(360deg);
+  -webkit-transform: rotate(360deg);
+  -moz-transform: rotate(360deg);
+  -o-transform: rotate(360deg);
+  text-align: center;
+  text-decoration: none;
+
+}
+.player1-container{
+  padding: 10px;
+  /* background: white; */
+  font-family: "Baloo Paaji", cursive;
+
+  text-shadow: 0 0 10px #cd1515;
+    /* -webkit-text-stroke: 1px white;  */
+  position: fixed;
+  right: 80%;
+  bottom: 50%;
+  z-index: 1000;
+  transform: rotate(360deg);
+  -webkit-transform: rotate(360deg);
+  -moz-transform: rotate(360deg);
+  -o-transform: rotate(360deg);
+  text-align: center;
+  text-decoration: none;
+}
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

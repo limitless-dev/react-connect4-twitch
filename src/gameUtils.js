@@ -27,6 +27,7 @@ const checkVertical = (board) => {
           board[r][c] === board[r - 1][c] &&
           board[r][c] === board[r - 2][c] &&
           board[r][c] === board[r - 3][c]
+          
         ) {
           return board[r][c]
         }

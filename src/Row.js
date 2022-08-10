@@ -3,7 +3,7 @@ import gameStyles from './Home.module.css'
 
 export const Row = ({ row, play }) => {
   return (
-    <tr style={{background: '#1990ff'}}>
+    <tr>
       {row.map((cell, i) => (
         <Cell key={i} value={cell} columnIndex={i} play={play} />
       ))}
@@ -21,9 +21,10 @@ export const Cell = ({ value, columnIndex, play }) => {
   return (
     <td>
       <Flex
+        id={columnIndex}
         justify="center"
         align="center"
-        className={gameStyles.gameCell + ' cell'}
+        className={gameStyles.gameCell}
         onClick={() => {
           play(columnIndex)
         }}

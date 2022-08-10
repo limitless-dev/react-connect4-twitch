@@ -13,17 +13,21 @@ export default function Example({
   setClient,
   command,
   setCommand,
+  setTwitchMessage,
+  setTwitchUser,
+  setTwitchTime,
+  startPlayer,
+  setStartPlayer,
 }) {
   const [channel, setChannel] = useState("");
   const [connectionStatus, setConnectionStatus] = useState("Disconnected");
-
   const cancelButtonRef = useRef(null);
 
   const loadDataOnlyOnce = useCallback(() => {
     setClient(
       new tmi.Client({
         options: {
-          debug: false,
+          debug: true,
         },
         channels: [channel],
       })
@@ -31,7 +35,7 @@ export default function Example({
   }, [channel, setClient]);
 
   useEffect(() => {
-    loadDataOnlyOnce(); // // this will fire only when loadDataOnlyOnce-reference changes
+    loadDataOnlyOnce();
   }, [loadDataOnlyOnce]);
 
   const connectTwitch = async () => {
@@ -42,7 +46,6 @@ export default function Example({
     // if there is an open connection, close it because
     // we will make a new connection
     if (client.readyState() === "OPEN") {
-      console.log("here");
       await client.disconnect();
       setConnectionStatus("Disconnected");
     }
@@ -52,6 +55,20 @@ export default function Example({
     if (client.readyState() === "OPEN") {
       setConnectionStatus(`Connected to ${channel}`);
     }
+
+    client.on("message", (channel, tags, message, self) => {
+      if (!message.startsWith("!")) return;
+
+      const args = message.slice(1).split(" ");
+      const receivedCommand = args.shift().toLowerCase();
+
+      if (receivedCommand !== command) {
+        return;
+      }
+      setTwitchTime(Date.now());
+      setTwitchMessage(message);
+      setTwitchUser(tags.username.toLowerCase());
+    });
   };
 
   return (
@@ -75,7 +92,7 @@ export default function Example({
         </Transition.Child>
 
         <div className="fixed z-10 inset-0 overflow-y-auto">
-          <div className="flex items-end sm:items-center justify-center min-h-full p-4 text-center sm:p-0">
+          <div className="flex items-end sm:items-center justify-center min-h-full p-4 sm:p-0">
             <Transition.Child
               as={Fragment}
               enter="ease-out duration-300"
@@ -88,7 +105,7 @@ export default function Example({
               <Dialog.Panel className="relative bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:max-w-lg sm:w-full">
                 <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                   <div className="sm:flex sm:items-start">
-                    <div className="space-y-10 m:p-12 mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                    <div className="space-y-10 m:p-12 mt-3 sm:mt-0 sm:ml-4 sm:text-left">
                       <Dialog.Title
                         as="h3"
                         className="text-lg leading-6 font-medium text-gray-900"
@@ -148,12 +165,12 @@ export default function Example({
                                     />
                                   </div>
                                 </div>
-                                <div className="col-span-3 sm:col-span-3">
+                                <div className=" col-span-3 sm:col-span-3">
                                   <label
                                     htmlFor="company-website"
                                     className="block text-sm font-medium text-gray-700"
                                   >
-                                    Player 1
+                                    Red Player
                                   </label>
                                   <div className="mt-1 flex rounded-md shadow-sm">
                                     <span className="inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 bg-gray-50 text-gray-500 text-sm">
@@ -177,7 +194,7 @@ export default function Example({
                                     htmlFor="company-website"
                                     className="block text-sm font-medium text-gray-700"
                                   >
-                                    Player 2
+                                    Blue Player
                                   </label>
                                   <div className="mt-1 flex rounded-md shadow-sm">
                                     <span className="inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 bg-gray-50 text-gray-500 text-sm">
@@ -196,7 +213,29 @@ export default function Example({
                                     />
                                   </div>
                                 </div>
-                                <div className="space-y-10 sm:space-y-10"></div>
+                                <div className="col-span-6 sm:col-span-6">
+                                  <label
+                                    htmlFor="countries"
+                                    className="block text-sm font-medium text-gray-700  mb-2 dark:text-gray-400"
+                                  >
+                                    Who plays first?
+                                  </label>
+                                  <select
+                                    id="players"
+                                    defaultValue={startPlayer}
+                                    className="w-2/4 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    onChange={(e) => {
+                                      setStartPlayer(e.target.value);
+                                    }}
+                                  >
+                                    <option value="1">Red Player</option>
+                                    <option value="2">Blue Player</option>
+                                  </select>
+                                  <p className="block text-sm text-gray-700  mt-1 mb-2 dark:text-gray-400">
+                                    * Changing the player will result in clearing
+                                    the board!
+                                  </p>
+                                  </div>
                               </div>
                             </div>
                           </div>
