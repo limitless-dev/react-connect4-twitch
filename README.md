@@ -64,8 +64,8 @@ Then you can preview it in your browser using [http://localhost:3000](http://loc
 | Redesign connect4 board | ✅
 | Notification pop-up containing next player name | ✅
 | Allow switching players colors | ✅
-| Popup at end of game showing the winner name | ⬜️
-| Dark Mode | ⬜️
+| Popup at end of game showing the winner name | ✅
+| Dark Mode | ✅
 | Board Customization (size, color ...etc) | ⬜️
 
 

@@ -2,9 +2,10 @@ import { useReducer } from "react";
 import { Row } from "./Row";
 import { Text } from "@chakra-ui/react";
 import { checkForWin, deepCloneBoard, generateNewBoard } from "./gameUtils";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import * as gameStyles from "./Home.module.css";
 import CurrentPlayer from "./CurrentPlayer";
+import Modal from "./Layouts/Modal";
 
 const gameReducer = (state, action) => {
   switch (action.type) {
@@ -63,6 +64,8 @@ export const Connect4 = ({
     initialGameState
   );
 
+  const [openWinner, setOpenWinner] = useState(false);
+
   // triggered through 'Twitch Settings' modal when a user
   // changes the start player
   useEffect(() => {
@@ -71,7 +74,7 @@ export const Connect4 = ({
   }, [startPlayer]);
 
   // triggered when a user clicks a cell or a specified
-  // Twitch user sends the desired play position 
+  // Twitch user sends the desired play position
   const play = (c) => {
     if (!gameState.gameOver) {
       let board = deepCloneBoard(gameState.board);
@@ -151,10 +154,47 @@ export const Connect4 = ({
     }
   }, [twitchMessage, twitchUser, twitchTime]);
 
+  useEffect(() => {
+    if (
+      gameState.message.includes("Wins") ||
+      gameState.message.includes("Draw")
+    ) {
+      setOpenWinner(true);
+    }
+  }, [gameState.message]);
+
   return (
     <>
-      <Text>{gameState.message}</Text>
+      <Modal openModal={openWinner} setOpenModal={setOpenWinner} title="Winner">
+        <div className="pyro ">
+          <div className="before"></div>
+          <div className="after"></div>
+        
+        <div className="space-y-4">
+          {/* <img
+            className="mx-auto h-20 w-20 rounded-full lg:w-24 lg:h-24"
+            src={distinctUsers.length === 0 ? "" : winner.imgURL}
+            alt=""
+          /> */}
+          <div className="space-y-2 winnerBox">
+            <div className="text-xs font-medium lg:text-sm">
+              <h3 className="dark:text-white text-center text-4xl">
+                {gameState.message === "Red Player Wins!" &&
+                firstPlayer !== "" ? (
+                  <div>{firstPlayer}</div>
+                ) : gameState.message === "Blue Player Wins!" &&
+                  secondPlayer !== "" ? (
+                  <div>{secondPlayer}</div>
+                ) : (
+                  <div>{gameState.message}</div>
+                )}
+              </h3>
+            </div>
+          </div>
+        </div>
+        </div>
 
+      </Modal>
       <button
         className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-indigo-600 bg-white hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
         onClick={() => {
@@ -169,18 +209,18 @@ export const Connect4 = ({
       <div className="inline-block p-5 m-auto connect4-container rounded-2xl">
         <table id="table1" className="m-auto connect4-table">
           <tbody>
+            <tr>
+              <td className="text-2xl dark:text-white">1</td>
+              <td className="text-2xl dark:text-white">2</td>
+              <td className="text-2xl dark:text-white">3</td>
+              <td className="text-2xl dark:text-white">4</td>
+              <td className="text-2xl dark:text-white">5</td>
+              <td className="text-2xl dark:text-white">6</td>
+              <td className="text-2xl dark:text-white">7</td>
+            </tr>
             {gameState.board.map((row, i) => (
               <Row key={i} row={row} play={play} />
             ))}
-            <tr>
-              <td className="text-xl">1</td>
-              <td className="text-xl">2</td>
-              <td className="text-xl">3</td>
-              <td className="text-xl">4</td>
-              <td className="text-xl">5</td>
-              <td className="text-xl">6</td>
-              <td className="text-xl">7</td>
-            </tr>
           </tbody>
         </table>
       </div>

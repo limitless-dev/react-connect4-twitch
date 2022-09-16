@@ -4,17 +4,17 @@
 .gameCell {
   height: 7vw;
   width: 7vw;
-  background-color: #dee2e6;
+  background-color: #1e293c;
   /* border-radius: 50%;
-  /* border-style: solid;
+   border-style: solid;
   border-width: 1px; */
-  /* border-color: #1990ff;  */
+   /* border-color: #1990ff;  */
   
   cursor: pointer;
 }
 
 table, td{
-  background-color: #dee2e6 !important;
+  background-color: #1e293c !important;
 }
 
 .whiteCircle,
@@ -39,7 +39,7 @@ table, td{
 }
 
 .yellowCircle {
-  background-color: #0d4174;
+  background-color: #0080ff;
   transition: background-color 0s;
   /* background-image: url("../public/22.png"); */
   animation-name: fall-animation;

@@ -57,6 +57,7 @@ export default function Example({
     }
 
     client.on("message", (channel, tags, message, self) => {
+
       if (!message.startsWith("!")) return;
 
       const args = message.slice(1).split(" ");
@@ -102,13 +103,13 @@ export default function Example({
               leaveFrom="opacity-100 translate-y-0 sm:scale-100"
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
-              <Dialog.Panel className="relative bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:max-w-lg sm:w-full">
-                <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+              <Dialog.Panel className="relative bg-white dark:bg-gray-800 rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:max-w-lg sm:w-full">
+                <div className="bg-white dark:bg-slate-800 px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                   <div className="sm:flex sm:items-start">
                     <div className="space-y-10 m:p-12 mt-3 sm:mt-0 sm:ml-4 sm:text-left">
                       <Dialog.Title
                         as="h3"
-                        className="text-lg leading-6 font-medium text-gray-900"
+                        className="text-lg leading-6 font-medium text-gray-900 dark:text-white"
                       >
                         Twitch Configuration
                       </Dialog.Title>
@@ -120,19 +121,19 @@ export default function Example({
                                 <div className="col-span-4 sm:col-span-4 col-start-1 sm:col-start-1">
                                   <label
                                     htmlFor="twitch-channel"
-                                    className="block text-sm font-medium text-gray-700"
+                                    className="block text-sm font-medium text-gray-700 dark:text-white"
                                   >
                                     Channel
                                   </label>
                                   <div className="mt-1 flex rounded-md shadow-sm">
-                                    <span className="inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 bg-gray-50 text-gray-500 text-sm">
+                                  <span className="inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 bg-gray-50 text-gray-500 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-300 sm:text-sm">
                                       @
                                     </span>
                                     <input
                                       type="text"
                                       name="twitch-channel"
                                       id="twitch-channel"
-                                      className="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300"
+                                      className="flex-1 min-w-0 block w-full px-3 py-2 rounded-none rounded-r-md focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 dark:border-gray-800 dark:bg-gray-700 dark:text-white"
                                       placeholder=""
                                       value={channel}
                                       onChange={(e) =>
@@ -144,19 +145,19 @@ export default function Example({
                                 <div className="col-span-2 sm:col-span-2 col-start-5 sm:col-start-5">
                                   <label
                                     htmlFor="twitch-command"
-                                    className="block text-sm font-medium text-gray-700"
+                                    className="block text-sm font-medium text-gray-700 dark:text-white"
                                   >
                                     Command
                                   </label>
                                   <div className="mt-1 flex rounded-md shadow-sm">
-                                    <span className="inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 bg-gray-50 text-gray-500 text-sm">
+                                  <span className="inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 bg-gray-50 text-gray-500 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-300 sm:text-sm">
                                       !
                                     </span>
                                     <input
                                       type="text"
                                       name="twitch-command"
                                       id="twitch-command"
-                                      className="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300"
+                                      className="flex-1 min-w-0 block w-full px-3 py-2 rounded-none rounded-r-md focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 dark:border-gray-800 dark:bg-gray-700 dark:text-white"
                                       placeholder=""
                                       value={command}
                                       onChange={(e) =>
@@ -168,19 +169,19 @@ export default function Example({
                                 <div className=" col-span-3 sm:col-span-3">
                                   <label
                                     htmlFor="company-website"
-                                    className="block text-sm font-medium text-gray-700"
+                                    className="block text-sm font-medium text-gray-700 dark:text-white"
                                   >
                                     Red Player
                                   </label>
                                   <div className="mt-1 flex rounded-md shadow-sm">
-                                    <span className="inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 bg-gray-50 text-gray-500 text-sm">
+                                  <span className="inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 bg-gray-50 text-gray-500 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-300 sm:text-sm">
                                       @
                                     </span>
                                     <input
                                       type="text"
                                       name="twitch-player1"
                                       id="twitch-player1"
-                                      className="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300"
+                                      className="flex-1 min-w-0 block w-full px-3 py-2 rounded-none rounded-r-md focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 dark:border-gray-800 dark:bg-gray-700 dark:text-white"
                                       placeholder=""
                                       value={firstPlayer}
                                       onChange={(e) =>
@@ -192,19 +193,19 @@ export default function Example({
                                 <div className="col-span-3 sm:col-span-3">
                                   <label
                                     htmlFor="company-website"
-                                    className="block text-sm font-medium text-gray-700"
+                                    className="block text-sm font-medium text-gray-700 dark:text-white"
                                   >
                                     Blue Player
                                   </label>
                                   <div className="mt-1 flex rounded-md shadow-sm">
-                                    <span className="inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 bg-gray-50 text-gray-500 text-sm">
+                                  <span className="inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 bg-gray-50 text-gray-500 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-300 sm:text-sm">
                                       @
                                     </span>
                                     <input
                                       type="text"
                                       name="twitch-player2"
                                       id="twitch-player2"
-                                      className="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300"
+                                      className="flex-1 min-w-0 block w-full px-3 py-2 rounded-none rounded-r-md focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 dark:border-gray-800 dark:bg-gray-700 dark:text-white"
                                       placeholder=""
                                       value={secondPlayer}
                                       onChange={(e) =>
@@ -216,14 +217,14 @@ export default function Example({
                                 <div className="col-span-6 sm:col-span-6">
                                   <label
                                     htmlFor="countries"
-                                    className="block text-sm font-medium text-gray-700  mb-2 dark:text-gray-400"
+                                    className="block text-sm font-medium text-gray-700  mb-2 dark:text-white"
                                   >
                                     Who plays first?
                                   </label>
                                   <select
                                     id="players"
                                     defaultValue={startPlayer}
-                                    className="w-2/4 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    className="w-2/4 bg-gray-50 dark:bg-gray-700 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                     onChange={(e) => {
                                       setStartPlayer(e.target.value);
                                     }}
@@ -244,7 +245,7 @@ export default function Example({
                     </div>
                   </div>
                 </div>
-                <div className="grid grid-cols-8 gap-4 px-4 py-3 bg-gray-50 sm:px-6 bg-gray-50">
+                <div className="grid grid-cols-8 gap-4 px-4 py-3 bg-gray-50 sm:px-6 bg-gray-50 dark:bg-gray-900">
                   <div className="col-span-2 sm:col-span-2 col-start-1 sm:col-start-1">
                     <p
                       className={`inline-block align-middle text-sm font-semibold ${
