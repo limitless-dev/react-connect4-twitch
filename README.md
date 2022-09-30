@@ -22,7 +22,7 @@ through Twitch chat with extra settings.
 
 ### Online
 
-You can preview the project online by clicking [here](https://connect4-twitch.surge.sh/) 
+You can preview the project online by clicking [here](https://react-connect4-twitch-limitless-dev.vercel.app/) 
 
 
 ### Locally
@@ -66,11 +66,14 @@ Then you can preview it in your browser using [http://localhost:3000](http://loc
 | Allow switching players colors | ✅
 | Popup at end of game showing the winner name | ✅
 | Dark Mode | ✅
+| Redo last move button in menu bar | ✅
+| Timer for each move | ✅
 | Board Customization (size, color ...etc) | ⬜️
 
 
 ## Credits
-The game logic is forked from this 
+The game logic is forked from this with many
+features and enhancements
 [repo here](https://github.com/mtliendo/connect4).
 
 ## Contribution
