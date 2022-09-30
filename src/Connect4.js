@@ -1,18 +1,18 @@
-import { useReducer } from "react";
-import { Row } from "./Row";
-import { Text } from "@chakra-ui/react";
-import { checkForWin, deepCloneBoard, generateNewBoard } from "./gameUtils";
 import { useEffect, useState } from "react";
-import * as gameStyles from "./Home.module.css";
-import CurrentPlayer from "./CurrentPlayer";
+import { useInterval } from "@mantine/hooks";
+import { checkForWin, deepCloneBoard, generateNewBoard } from "./gameUtils";
+import { Row } from "./Row";
 import Modal from "./Layouts/Modal";
+import { ReactComponent as DownIcon } from "./assets/DownIcon.svg";
 
-const gameReducer = (state, action) => {
+
+export const gameReducer = (state, action) => {
   switch (action.type) {
     case "newGame":
       return {
         ...initialGameState,
         board: action.board,
+        currentPlayer: action.currentPlayer ? action.currentPlayer : 1,
       };
     case "togglePlayer":
       return {
@@ -36,7 +36,7 @@ const gameReducer = (state, action) => {
       throw Error(`Action "${action.type}" is not a valid action.`);
   }
 };
-const initialGameState = {
+export const initialGameState = {
   player1: 1,
   player2: 2,
   currentPlayer: 1,
@@ -58,26 +58,56 @@ export const Connect4 = ({
   twitchUser,
   twitchTime,
   startPlayer,
+  gameState,
+  dispatchGameState,
+  setBoardHistory,
+  start,
+  openWinner,
+  setOpenWinner,
+  interval,
+  setMilliseconds,
 }) => {
-  const [gameState, dispatchGameState] = useReducer(
-    gameReducer,
-    initialGameState
-  );
-
-  const [openWinner, setOpenWinner] = useState(false);
-
+  const [hoveredColumn, setHoveredColumn] = useState(0);
   // triggered through 'Twitch Settings' modal when a user
   // changes the start player
   useEffect(() => {
     initialGameState.currentPlayer = parseInt(startPlayer);
-    dispatchGameState({ type: "newGame", board: generateNewBoard() });
+    setMilliseconds(0);
+    interval.stop();
+    dispatchGameState({
+      type: "newGame",
+      board: generateNewBoard(),
+      currentPlayer: parseInt(startPlayer),
+    });
   }, [startPlayer]);
+
+  const addBoard = (newBoard) =>
+    setBoardHistory((board) => [
+      ...board,
+      {
+        board: newBoard,
+        currentPlayer: gameState.currentPlayer === 1 ? 2 : 1,
+      },
+    ]);
+
+
+
+  const [blueRotation, setBlueRotation] = useState(0);
+  const winEffect = useInterval(() => {
+    if (blueRotation === 5) {
+      setBlueRotation(0);
+    } else {
+      setBlueRotation((img) => img + 1);
+    }
+  }, 1000);
+
 
   // triggered when a user clicks a cell or a specified
   // Twitch user sends the desired play position
   const play = (c) => {
     if (!gameState.gameOver) {
       let board = deepCloneBoard(gameState.board);
+
       //check if cell is taken by starting at the
       //bottom row and working up
       for (let r = 5; r >= 0; r--) {
@@ -91,30 +121,39 @@ export const Connect4 = ({
       }
 
       let result = checkForWin(board);
-      if (result === gameState.player1) {
+      if (result.winner === gameState.player1) {
         dispatchGameState({
           type: "endGame",
           message: "Red Player Wins!",
           board,
         });
-      } else if (result === gameState.player2) {
+        interval.stop();
+      } else if (result.winner === gameState.player2) {
         dispatchGameState({
           type: "endGame",
           message: "Blue Player Wins!",
           board,
         });
-      } else if (result === "draw") {
+        interval.stop();
+      } else if (result.winner === "draw") {
         dispatchGameState({
           type: "endGame",
           message: "Draw Game!",
           board,
         });
+        interval.stop();
       } else {
         const nextPlayer =
           gameState.currentPlayer === gameState.player1
             ? gameState.player2
             : gameState.player1;
         dispatchGameState({ type: "togglePlayer", nextPlayer, board });
+        addBoard(board);
+
+        if (!interval.active) {
+          interval.start();
+        }
+        setMilliseconds(0);
       }
     }
     // If the user clicked on cell but the game is
@@ -159,100 +198,64 @@ export const Connect4 = ({
       gameState.message.includes("Wins") ||
       gameState.message.includes("Draw")
     ) {
-      setOpenWinner(true);
+      start();
     }
   }, [gameState.message]);
 
   return (
     <>
       <Modal openModal={openWinner} setOpenModal={setOpenWinner} title="Winner">
-        <div className="pyro ">
+        <div className="pyro">
           <div className="before"></div>
           <div className="after"></div>
-        
-        <div className="space-y-4">
-          {/* <img
-            className="mx-auto h-20 w-20 rounded-full lg:w-24 lg:h-24"
-            src={distinctUsers.length === 0 ? "" : winner.imgURL}
-            alt=""
-          /> */}
-          <div className="space-y-2 winnerBox">
-            <div className="text-xs font-medium lg:text-sm">
-              <h3 className="dark:text-white text-center text-4xl">
-                {gameState.message === "Red Player Wins!" &&
-                firstPlayer !== "" ? (
-                  <div>{firstPlayer}</div>
-                ) : gameState.message === "Blue Player Wins!" &&
-                  secondPlayer !== "" ? (
-                  <div>{secondPlayer}</div>
-                ) : (
-                  <div>{gameState.message}</div>
-                )}
-              </h3>
+
+          <div className="space-y-4">
+            <div className="space-y-2 winnerBox">
+              <div className="text-xs font-medium lg:text-sm">
+                <h3 className="dark:text-white text-center text-4xl">
+                  {gameState.message === "Red Player Wins!" &&
+                  firstPlayer !== "" ? (
+                    <div>{firstPlayer}</div>
+                  ) : gameState.message === "Blue Player Wins!" &&
+                    secondPlayer !== "" ? (
+                    <div>{secondPlayer}</div>
+                  ) : (
+                    <div>{gameState.message}</div>
+                  )}
+                </h3>
+              </div>
             </div>
           </div>
         </div>
-        </div>
-
       </Modal>
-      <button
-        className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-indigo-600 bg-white hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-        onClick={() => {
-          dispatchGameState({ type: "newGame", board: generateNewBoard() });
-        }}
-      >
-        New Game
-      </button>
-      <br></br>
-      <br></br>
 
-      <div className="inline-block p-5 m-auto connect4-container rounded-2xl">
-        <table id="table1" className="m-auto connect4-table">
-          <tbody>
-            <tr>
-              <td className="text-2xl dark:text-white">1</td>
-              <td className="text-2xl dark:text-white">2</td>
-              <td className="text-2xl dark:text-white">3</td>
-              <td className="text-2xl dark:text-white">4</td>
-              <td className="text-2xl dark:text-white">5</td>
-              <td className="text-2xl dark:text-white">6</td>
-              <td className="text-2xl dark:text-white">7</td>
-            </tr>
-            {gameState.board.map((row, i) => (
-              <Row key={i} row={row} play={play} />
-            ))}
-          </tbody>
-        </table>
+      <div className="inline-block p-[2px] m-auto connect4-container rounded-[6rem]">
+        <div className="p-[3.5rem] bg-[#0f172a] rounded-[6rem]">
+          <table id="table1" className="m-auto connect4-table rounded-2xl">
+            <tbody>
+              <tr>
+                <td className="text-2xl text-center inline-block dark:text-white"> {hoveredColumn === 0 ?  (<DownIcon className="mt-[-2rem] m-auto"/>) : null} </td>
+                <td className="text-2xl dark:text-white">{hoveredColumn === 1 ?  (<DownIcon className="mt-[-2rem] m-auto"/>) : null}</td>
+                <td className="text-2xl dark:text-white">{hoveredColumn === 2 ?  (<DownIcon className="mt-[-2rem] m-auto" />) : null}</td>
+                <td className="text-2xl dark:text-white">{hoveredColumn === 3 ?  (<DownIcon className="mt-[-2rem] m-auto"/>) : null}</td>
+                <td className="text-2xl dark:text-white">{hoveredColumn === 4 ?  (<DownIcon className="mt-[-2rem] m-auto"/>) : null}</td>
+                <td className="text-2xl dark:text-white">{hoveredColumn === 5 ?  (<DownIcon className="mt-[-2rem] m-auto"/>) : null}</td>
+                <td className="text-2xl dark:text-white">{hoveredColumn === 6 ?  (<DownIcon className="mt-[-2rem] m-auto"/>) : null}</td>
+              </tr>
+              {gameState.board.map((row, i) => (
+                <Row
+                  key={i}
+                  rowId={i}
+                  row={row}
+                  play={play}
+                  result={checkForWin(deepCloneBoard(gameState.board))}
+                  setHoveredColumn={setHoveredColumn}
+                />
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
-      <br></br>
-      <br></br>
-
-      {gameState.currentPlayer === 1 && firstPlayer !== "" && (
-        <CurrentPlayer player={firstPlayer} />
-      )}
-
-      {gameState.currentPlayer === 2 && secondPlayer !== "" && (
-        <CurrentPlayer player={secondPlayer} />
-      )}
-      {/** Below is to show names on side of board */}
-      {firstPlayer !== "" && (
-        <div className="player1-container self-center	col-start-4 col-span-2 ">
-          <div className="player1 text-4xl">{firstPlayer}</div>
-          <br></br>
-          <div className="player1 text-4xl">
-            {gameState.currentPlayer === 1 ? "(Now)" : ""}
-          </div>
-        </div>
-      )}
-      {secondPlayer !== "" && (
-        <div className="player2-container self-center	col-start-8 col-span-2 ">
-          <div className="player2 text-4xl">{secondPlayer}</div>
-          <br></br>
-          <div className="player2 text-4xl">
-            {gameState.currentPlayer === 2 ? "(Now)" : ""}
-          </div>
-        </div>
-      )}
     </>
   );
 };

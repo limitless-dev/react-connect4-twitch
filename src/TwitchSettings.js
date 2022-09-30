@@ -2,7 +2,7 @@ import { Fragment, useRef, useState, useEffect, useCallback } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import tmi from "tmi.js";
 
-export default function Example({
+export default function TwtichSettings({
   openModal,
   setOpenModal,
   firstPlayer,
