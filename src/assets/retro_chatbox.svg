@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+preserveAspectRatio="none"  width="846.485"
+height="393.619" viewBox="0 0 846.485 393.619">
+  <g id="Group_923" data-name="Group 923" transform="translate(-1022.795 -138.431)">
+    <path id="Path_2" data-name="Path 2" d="M1041.357,147.712v9.281h-9.281V513.488h9.281v9.281h809.361v-9.281H1860V156.993h-9.281v-9.281Z" fill="#2b2b2b"/>
+    <g id="Group_25" data-name="Group 25">
+      <g id="Group_21" data-name="Group 21">
+        <rect id="Rectangle_7" data-name="Rectangle 7" width="9.281" height="9.281" transform="translate(1041.357 532.05) rotate(-90)" fill="#150c4c"/>
+        <rect id="Rectangle_8" data-name="Rectangle 8" width="9.281" height="9.281" transform="translate(1032.076 522.769) rotate(-90)" fill="#150c4c"/>
+        <rect id="Rectangle_9" data-name="Rectangle 9" width="9.281" height="9.281" transform="translate(1022.795 513.488) rotate(-90)" fill="#150c4c"/>
+      </g>
+      <g id="Group_22" data-name="Group 22">
+        <rect id="Rectangle_10" data-name="Rectangle 10" width="9.281" height="9.281" transform="translate(1050.638 138.431) rotate(90)" fill="#150c4c"/>
+        <rect id="Rectangle_11" data-name="Rectangle 11" width="9.281" height="9.281" transform="translate(1041.357 147.712) rotate(90)" fill="#150c4c"/>
+        <rect id="Rectangle_12" data-name="Rectangle 12" width="9.281" height="9.281" transform="translate(1032.076 156.993) rotate(90)" fill="#150c4c"/>
+      </g>
+      <rect id="Rectangle_13" data-name="Rectangle 13" width="356.495" height="9.281" transform="translate(1022.795 513.488) rotate(-90)" fill="#150c4c"/>
+      <g id="Group_23" data-name="Group 23">
+        <rect id="Rectangle_14" data-name="Rectangle 14" width="9.281" height="9.281" transform="translate(1850.718 138.431) rotate(90)" fill="#150c4c"/>
+        <rect id="Rectangle_15" data-name="Rectangle 15" width="9.281" height="9.281" transform="translate(1859.999 147.712) rotate(90)" fill="#150c4c"/>
+        <rect id="Rectangle_16" data-name="Rectangle 16" width="9.281" height="9.281" transform="translate(1869.28 156.993) rotate(90)" fill="#150c4c"/>
+      </g>
+      <g id="Group_24" data-name="Group 24">
+        <rect id="Rectangle_17" data-name="Rectangle 17" width="9.281" height="9.281" transform="translate(1841.437 532.05) rotate(-90)" fill="#150c4c"/>
+        <rect id="Rectangle_18" data-name="Rectangle 18" width="9.281" height="9.281" transform="translate(1850.718 522.769) rotate(-90)" fill="#150c4c"/>
+        <rect id="Rectangle_19" data-name="Rectangle 19" width="9.281" height="9.281" transform="translate(1859.999 513.488) rotate(-90)" fill="#150c4c"/>
+      </g>
+      <rect id="Rectangle_20" data-name="Rectangle 20" width="356.495" height="9.281" transform="translate(1869.28 156.993) rotate(90)" fill="#150c4c"/>
+      <rect id="Rectangle_21" data-name="Rectangle 21" width="809.361" height="9.281" transform="translate(1850.718 147.712) rotate(180)" fill="#150c4c"/>
+      <rect id="Rectangle_22" data-name="Rectangle 22" width="809.361" height="9.281" transform="translate(1850.718 532.05) rotate(-180)" fill="#150c4c"/>
+    </g>
+    <rect id="Rectangle_23" data-name="Rectangle 23" width="9.281" height="356.495" transform="translate(1850.718 156.993)" fill="#494949"/>
+    <rect id="Rectangle_24" data-name="Rectangle 24" width="650.651" height="9.281" transform="translate(1200.068 147.712)" fill="#494949"/>
+  </g>
+</svg>

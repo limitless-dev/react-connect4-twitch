@@ -19,7 +19,7 @@ module.exports = {
         'connect4-black-bg': '#1a1b1e'
       },
       backgroundImage: {
-        'game-logo': "url('./assets/bg_001.png')",
+        'game-logo': "url('./assets/retro_bg.svg')",
       },
       width: {
         'c-34': '34px',

@@ -1,17 +1,23 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import "https://fonts.googleapis.com/css?family=Baloo+Paaji";
 
 html {
   width: 100%;
   height: 100%;
   display: table;
+  cursor: url('./assets/cursor.png'),auto;
+
 }
 
 body {
   width: 100%;
   display: table-cell;
+  background-image: url("../src/assets/retro_bg.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 0;
+  padding-top: 66, 64%;
 }
 
 html,
@@ -22,69 +28,10 @@ body {
 
 body > #root > div,
 body > #root {
-  height: 100vw !important;
+  height: 100% !important;
 }
 
-/* right side shape */
-.a {
-  -webkit-clip-path: polygon(11% 0%, 40% 0%, 60% 100%, 30% 100%);
-  clip-path: polygon(11% 0%, 40% 0%, 60% 100%, 30% 100%);
-  width: 100px;
-  height: 55px;
-  margin-left: 70px;
-  margin-bottom: -10px;
-}
-/* left side shape */
-.b {
-  -webkit-clip-path: polygon(0 0, 52% 1%, 100% 100%, 44% 100%);
-  clip-path: polygon(0 0, 52% 1%, 100% 100%, 44% 100%);
-  width: 35px;
-  height: 15px;
-  margin-bottom: -10px;
-  margin-left: -30px;
-}
-/* line shape */
-.c {
-  -webkit-clip-path: polygon(0 75%, 100% 75%, 100% 100%, 0% 100%);
-  clip-path: polygon(0 75%, 100% 75%, 100% 100%, 0% 100%);
-  width: 400px;
-  height: 10px;
-}
+button {
+  cursor: url('./assets/pointer.png') 14 0,pointer;
 
-.parent {
-  display: grid;
-  align-items: flex-end;
-  grid-template-columns: 100px 100px 100px 100px;
-  grid-template-rows: 10px 100px 100px 10px 100px;
-  gap: 0px 0px;
-  grid-auto-flow: row dense;
-  grid-template-areas:
-    ". . . right-side"
-    ". player-container player-container right-side"
-    "left-side player-container player-container right-side"
-    "line line line line"
-    "time time . .";
-}
-
-.line {
-  grid-area: line;
-}
-
-.time {
-  grid-area: time;
-  margin-bottom: 45px;
-  margin-right: -70px;
-}
-
-.players-container {
-  grid-area: player-container;
-  margin-bottom: -10px;
-}
-
-.right-side {
-  grid-area: right-side;
-}
-
-.left-side {
-  grid-area: left-side;
 }
