@@ -9,8 +9,6 @@ through Twitch chat with extra settings.
 
 ![board](./README/board.png)
 
-![settings](./README/settings.png)
-
 
 ## Frameworks
 - ReactJS

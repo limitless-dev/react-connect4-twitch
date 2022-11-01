@@ -19,7 +19,7 @@ export default function TwtichSettings({
   startPlayer,
   setStartPlayer,
 }) {
-  const [channel, setChannel] = useState("");
+  const [channel, setChannel] = useState("dukeofarabia");
   const [connectionStatus, setConnectionStatus] = useState("Disconnected");
   const cancelButtonRef = useRef(null);
 
@@ -135,6 +135,7 @@ export default function TwtichSettings({
                                       id="twitch-channel"
                                       className="flex-1 min-w-0 block w-full px-3 py-2 rounded-none rounded-r-md focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 dark:border-gray-800 dark:bg-gray-700 dark:text-white"
                                       placeholder=""
+                                      // disabled={true}
                                       value={channel}
                                       onChange={(e) =>
                                         setChannel(e.target.value)

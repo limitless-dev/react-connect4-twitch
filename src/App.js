@@ -34,15 +34,14 @@ function App() {
   const { color, changeColor } = useTheme();
 
   return (
-    <div className="text-center dark:bg-slate-900 bg-game-logo bg-repeat">
+    <div className="text-center bg-game-logo">
       <Header
         height={60}
-        className="dark:bg-slate-900 flex flex-wrap items-center justify-end border-slate-800 pr-4 gap-2 "
+        className="bg-transparent border-transparent flex flex-wrap items-center justify-end  pr-4 gap-2 "
         fixed={false}
       >
         <MenuButton
           tooltipText="Twitch Settings"
-          backgroundColor="#6441A4"
           type="button"
           onClick={() => {
             clear();
@@ -102,7 +101,6 @@ function App() {
         </MenuButton>
       </Header>
 
-
       <header className="p-5">
         <TwitchSettings
           openModal={openModal}
@@ -129,9 +127,9 @@ function App() {
           <div className="mt-4 flex md:mt-0 md:ml-4"></div>
         </div>
       </header>
-      
-      <div className="grid grid-rows-1s grid-flow-col align-middle justify-evenly">
-        <div className="row-span-1">
+
+      <div className="container">
+        <div className="connect4-area">
           <Connect4
             firstPlayer={firstPlayer}
             secondPlayer={secondPlayer}
@@ -150,46 +148,49 @@ function App() {
             setMilliseconds={setMilliseconds}
           />
         </div>
-
-        <div className="w-80 self-center">
-          <div className="parent">
-            <div className="line">
-              <div className={`c ${gameState.currentPlayer === 1 ? 'bg-[#dc30f6]': 'bg-[#e6d542]'}`}></div>
-            </div>
-            <div className="time">
-              <div className="player1 text-5xl">
-                <span>
-                  {("0" + Math.floor((milliseconds / 60000) % 60)).slice(-2)}
-                </span>
-                :
-                <span>{("0" + Math.floor(milliseconds / 1000) % 60).slice(-2)}</span>
-                :
-                <span>
-                  {("0" + Math.floor((milliseconds / 10) % 1000)).slice(-2)}
-                </span>
+        <div className="chatBox-area">
+          <div className="chatBox"></div>
+        </div>
+        <div className="player-area">
+          <div className="playerTag">
+            {gameState.currentPlayer === 1 ? (
+              firstPlayer !== "" ? (
+                <div>{firstPlayer}</div>
+              ) : (
+                <div>Red Player</div>
+              )
+            ) : secondPlayer !== "" ? (
+              <div>{secondPlayer}</div>
+            ) : (
+              <div>Blue Player</div>
+            )}
+            <div className="text-5xl">
+              <span>
+                {("0" + Math.floor((milliseconds / 60000) % 60)).slice(-2)}
+              </span>
+              :
+              <span>
+                {("0" + (Math.floor(milliseconds / 1000) % 60)).slice(-2)}
+              </span>
+              :
+              <span>
+                {("0" + Math.floor((milliseconds / 10) % 1000)).slice(-2)}
+              </span>
+              <div className="flex align-super justify-start p-5">
+              <div className={`w-20 h-12 ${gameState.currentPlayer === 1 ? 'redCoin' : 'blueCoin' }`} />
               </div>
-            </div>
-            <div className="players-container">
-              {gameState.currentPlayer === 1
-                ? firstPlayer !== "" && (
-                    <div className="player1 text-white text-center">
-                      {firstPlayer}
-                    </div>
-                  )
-                : secondPlayer !== "" && (
-                    <div className="player2 text-center">{secondPlayer}</div>
-                  )}
-            </div>
-            <div className="right-side">
-              <div className={`a ${gameState.currentPlayer === 1 ? 'bg-[#dc30f6]': 'bg-[#e6d542]'}`}></div>
-            </div>
-            <div className="left-side">
-              <div className={`b ${gameState.currentPlayer === 1 ? 'bg-[#dc30f6]': 'bg-[#e6d542]'}`}></div>
+              {/* {gameState.message === "Red Player Wins!" || gameState.message === "Blue Player Wins!" ? (
+                <div>Winner!!</div>
+              ) : (
+                <div>{gameState.message}</div>
+              )} */}
             </div>
           </div>
-
-
         </div>
+        <div className="empty-top"></div>
+        <div className="empty-bottom"></div>
+        <div className="empty-right"></div>
+        <div className="empty-left"></div>
       </div>
     </div>
   );

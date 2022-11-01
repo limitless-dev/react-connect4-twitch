@@ -1,10 +1,6 @@
-import { useEffect, useState } from "react";
-import { useInterval } from "@mantine/hooks";
+import { useEffect } from "react";
 import { checkForWin, deepCloneBoard, generateNewBoard } from "./gameUtils";
 import { Row } from "./Row";
-import Modal from "./Layouts/Modal";
-import { ReactComponent as DownIcon } from "./assets/DownIcon.svg";
-
 
 export const gameReducer = (state, action) => {
   switch (action.type) {
@@ -62,14 +58,11 @@ export const Connect4 = ({
   dispatchGameState,
   setBoardHistory,
   start,
-  openWinner,
-  setOpenWinner,
   interval,
   setMilliseconds,
 }) => {
-  const [hoveredColumn, setHoveredColumn] = useState(0);
-  // triggered through 'Twitch Settings' modal when a user
-  // changes the start player
+  // When the preferred start player change (from
+  // Twitch Settings Model), reset the board with new settings.
   useEffect(() => {
     initialGameState.currentPlayer = parseInt(startPlayer);
     setMilliseconds(0);
@@ -81,6 +74,7 @@ export const Connect4 = ({
     });
   }, [startPlayer]);
 
+  // holder of board history, not related to the game logic.
   const addBoard = (newBoard) =>
     setBoardHistory((board) => [
       ...board,
@@ -89,18 +83,6 @@ export const Connect4 = ({
         currentPlayer: gameState.currentPlayer === 1 ? 2 : 1,
       },
     ]);
-
-
-
-  const [blueRotation, setBlueRotation] = useState(0);
-  const winEffect = useInterval(() => {
-    if (blueRotation === 5) {
-      setBlueRotation(0);
-    } else {
-      setBlueRotation((img) => img + 1);
-    }
-  }, 1000);
-
 
   // triggered when a user clicks a cell or a specified
   // Twitch user sends the desired play position
@@ -165,6 +147,8 @@ export const Connect4 = ({
       });
     }
   };
+
+
   useEffect(() => {
     if (twitchUser === "") {
       return;
@@ -204,43 +188,18 @@ export const Connect4 = ({
 
   return (
     <>
-      <Modal openModal={openWinner} setOpenModal={setOpenWinner} title="Winner">
-        <div className="pyro">
-          <div className="before"></div>
-          <div className="after"></div>
-
-          <div className="space-y-4">
-            <div className="space-y-2 winnerBox">
-              <div className="text-xs font-medium lg:text-sm">
-                <h3 className="dark:text-white text-center text-4xl">
-                  {gameState.message === "Red Player Wins!" &&
-                  firstPlayer !== "" ? (
-                    <div>{firstPlayer}</div>
-                  ) : gameState.message === "Blue Player Wins!" &&
-                    secondPlayer !== "" ? (
-                    <div>{secondPlayer}</div>
-                  ) : (
-                    <div>{gameState.message}</div>
-                  )}
-                </h3>
-              </div>
-            </div>
-          </div>
-        </div>
-      </Modal>
-
-      <div className="inline-block p-[2px] m-auto connect4-container rounded-[6rem]">
-        <div className="p-[3.5rem] bg-[#0f172a] rounded-[6rem]">
-          <table id="table1" className="m-auto connect4-table rounded-2xl">
+      <div className="connect4-container">
+        <div className="p-[4.5rem]">
+          <table id="table1" className="mt-[-3.5rem]">
             <tbody>
-              <tr>
-                <td className="text-2xl text-center inline-block dark:text-white"> {hoveredColumn === 0 ?  (<DownIcon className="mt-[-2rem] m-auto"/>) : null} </td>
-                <td className="text-2xl dark:text-white">{hoveredColumn === 1 ?  (<DownIcon className="mt-[-2rem] m-auto"/>) : null}</td>
-                <td className="text-2xl dark:text-white">{hoveredColumn === 2 ?  (<DownIcon className="mt-[-2rem] m-auto" />) : null}</td>
-                <td className="text-2xl dark:text-white">{hoveredColumn === 3 ?  (<DownIcon className="mt-[-2rem] m-auto"/>) : null}</td>
-                <td className="text-2xl dark:text-white">{hoveredColumn === 4 ?  (<DownIcon className="mt-[-2rem] m-auto"/>) : null}</td>
-                <td className="text-2xl dark:text-white">{hoveredColumn === 5 ?  (<DownIcon className="mt-[-2rem] m-auto"/>) : null}</td>
-                <td className="text-2xl dark:text-white">{hoveredColumn === 6 ?  (<DownIcon className="mt-[-2rem] m-auto"/>) : null}</td>
+              <tr className="text-2xl dark:text-white text-center arabicText">
+                <td>١</td>
+                <td>٢</td>
+                <td>٣</td>
+                <td>٤</td>
+                <td>٥</td>
+                <td>٦</td>
+                <td>٧</td>
               </tr>
               {gameState.board.map((row, i) => (
                 <Row
@@ -249,7 +208,6 @@ export const Connect4 = ({
                   row={row}
                   play={play}
                   result={checkForWin(deepCloneBoard(gameState.board))}
-                  setHoveredColumn={setHoveredColumn}
                 />
               ))}
             </tbody>

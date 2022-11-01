@@ -1,71 +1,69 @@
 .gameCell {
-  height: 5vw !important;
-  width: 5vw !important;
-  background: #0f172a;
+  height: 5.5vw !important;
+  width: 5.5vw !important;
+  /* background: #2A1A89; */
   cursor: pointer;
-  border-radius: 1rem;
+  /* border-radius: 5rem; */
 }
 
-table, td{
-  background: #0f172a !important;
+table,
+td {
   border-collapse: separate;
-  border-spacing: 1px;
+  border-spacing: 10px;
+  font-family: arabicRetro;
 }
 
-
-.whiteCircle,
-.redCircle,
-.blueCircle {
-  height: 90%;
-  width: 90%;
-  border-radius: 100px;
-  box-shadow: inset 0 0px 0, inset 0 -5px 20px 0 rgb(0 0 0 / 25%);  
+.connect4-table {
+  background-color: #dc30f6 !important;
+  padding: 90px;
 }
+
 
 .whiteCircle {
-  border: 7px solid #42f3e8;
+  background-image: url("./assets/connect4/retro/coin_border.svg");
+  background-repeat: no-repeat;
+  background-size: contain;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+
+  cursor: url('./assets/pointer.png') 14 0,pointer;
+
 }
 
-
 .redCircle {
-  background-color: #dc30f6;
-  border-radius: 50%;
-  width: 100%;
-  height: 95%;
-  margin: auto;
-  box-shadow: 0 0.05rem 0 var(--side), 0 0.1rem 0 var(--side), 0 0.15rem 0 var(--side), 0 0.2rem 0 var(--side), 0 0.25rem 0 var(--side), 0 0.3rem 0 var(--side), 0 0.35rem 0 var(--side), 0 0.4rem 0 var(--side), 0 0.45rem 0 var(--side), 0 0.5rem 0 var(--side);
-  transform: translateY(-0.375rem);
-  margin-top: 6%;
-  transition: background-color 0s;
-  animation-name: fall-animation;
-  animation-duration: 800ms;
+  background-image: url("./assets/connect4/retro/red_coin.svg");
 }
 
 .blueCircle {
-  background: #e6d542;
-  border-radius: 50%;
-  width: 100%;
-  height: 95%;
-  margin: auto;
-  box-shadow: 0 0.05rem 0 var(--side), 0 0.1rem 0 var(--side), 0 0.15rem 0 var(--side), 0 0.2rem 0 var(--side), 0 0.25rem 0 var(--side), 0 0.3rem 0 var(--side), 0 0.35rem 0 var(--side), 0 0.4rem 0 var(--side), 0 0.45rem 0 var(--side), 0 0.5rem 0 var(--side);
-  transform: translateY(-0.375rem);
-  margin-top: 6%;
-  transition: background-color 0s;
-  animation-name: fall-animation;
-  animation-duration: 800ms;
+  background-image: url("./assets/connect4/retro/blue_coin.svg");
 }
 
-.redCircle, .blueCircle {
-  background-image: url(./assets/Bolt.svg);
-  background-size: 30px;
+.redCircle,
+.blueCircle {
   background-repeat: no-repeat;
   background-position: center center;
+  background-size: contain;
+  width: 80%;
+  height: 80%;
+  margin: auto;
+  transition: background-image 0s;
+  animation-name: fall-animation;
+  animation-duration: 800ms;
+  transform: translateX(-0.1rem);
+
+  /* margin: auto;
+  transform: translateY(-0.375rem);
+  margin-top: 6%; */
+
 }
 
 @keyframes fall-animation {
   from {
     transform: translateY(-800px);
-    background-color:#fff
+    background-color: #fff;
   }
   to {
     transform: translateY(0);
